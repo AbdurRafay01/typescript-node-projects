@@ -3,8 +3,6 @@
 import chalk from "chalk";
 import chalkAnimation from "chalk-animation";
 import inquirer from "inquirer";
-import { Answers, Question } from "inquirer";
-import { input, select } from "@inquirer/prompts";
 import { stdout } from "process";
 
 class Calculator {
