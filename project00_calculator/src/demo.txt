@@ -1,0 +1,107 @@
+// calculator using chalk inquirer
+
+import chalk from "chalk";
+import chalkAnimation from "chalk-animation";
+import inquirer from "inquirer";
+import { Answers, Question } from "inquirer";
+import { input, select } from '@inquirer/prompts';
+
+
+
+class Calculator {
+  input_flag: boolean;
+
+  constructor() {
+    // flag used in input_number function for message switching
+    this.input_flag = true;
+    console.log("Constructing calculator instance");
+  }
+
+  /**
+   * run
+   */
+  public run() {
+    // stdout title
+    const rainbow_title = chalkAnimation.glitch("Welcome to the calculator");
+    rainbow_title.start();
+    console.log(chalk.red("Pick action to proceed!"));
+    // main
+    this.handle_prompt();
+  }
+
+  private input_number() {
+    inquirer
+      .prompt({
+        type: "input",
+        name: "answer",
+        message: "first number",
+        // message: () => {
+        //   if (this.input_flag) {
+        //     this.input_flag = false;
+        //     return "first number:";
+        //   }
+        //   this.input_flag = true;
+        //   return "second number";
+        // }
+      })
+      .then((prompt) => {
+        return prompt.answer;
+      });
+  }
+
+  private handle_prompt(): void {
+    inquirer
+      .prompt({
+        type: "list",
+        name: "action",
+        choices: ["add", "sub", "mul", "div", "quit"],
+      })
+      .then((answer) => {
+        console.log(`action: ${answer.action}`);
+        switch (answer.action) {
+          case "add":
+            this.add();
+            break;
+          case "sub":
+            this.sub();
+            break;
+          case "mul":
+            this.mul();
+            break;
+          case "div":
+            this.div();
+            break;
+          default:
+            console.log(chalk.red("Please select a valid option!"));
+            break;
+        }
+      });
+  }
+  /**
+   * add
+   */
+  public add() {
+    let num1: any = this.input_number();
+    let num2: any = this.input_number();
+    console.log("numbers log");
+    console.log(num1);
+    // console.log(num2);
+  }
+
+  /**
+   * sub
+   */
+  public sub() {}
+
+  /**
+   * mul
+   */
+  public mul() {}
+
+  /**
+   * div
+   */
+  public div() {}
+}
+
+new Calculator();
